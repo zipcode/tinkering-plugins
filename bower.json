@@ -1,0 +1,21 @@
+{
+  "name": "plugin",
+  "version": "0.0.1",
+  "authors": [
+    "@zip <->"
+  ],
+  "description": "Faffing with pluggable modules in the browser",
+  "main": "main.coffee",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "None",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
