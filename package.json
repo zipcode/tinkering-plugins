@@ -7,5 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "None"
+  "license": "None",
+  "dependencies": {
+    "coffee-middleware": "~0.2.1",
+    "express": "~4.9.7",
+    "express-less": "0.0.4",
+    "logfmt": "~1.2.0",
+    "coffee-script": "~1.8.0",
+    "request": "~2.45.0"
+  },
+  "devDependencies": {
+    "logfmt": "~1.2.0"
+  }
 }

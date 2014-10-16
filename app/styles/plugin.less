@@ -1,0 +1,69 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background: url(/img/background.jpeg) no-repeat center center fixed;
+  /* https://www.flickr.com/photos/msn678/274134737 */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+div, header, footer, content {
+  box-sizing: border-box;
+}
+
+body > footer {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  color: #eee;
+  text-align: right;
+  padding-right: 0.6em;
+}
+
+body > header {
+  color: #eee;
+  margin: 0;
+  display: block;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  > h1 {
+    margin: 0;
+    padding: 0.2em;
+    padding-left: 0.4em;
+  }
+}
+
+main {
+  background: rgba(255, 255, 255, 0.9);
+  width: 60%;
+  margin: auto;
+  margin-top: calc(30vh);
+  box-shadow: 0 0 4px #ccc;
+  min-height: 6em;
+}
+
+div.box {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 8px;
+  min-height: 6em;
+}
+
+div.box + div.box {
+  border-left: 1px solid #ccc;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 150%;
+}
