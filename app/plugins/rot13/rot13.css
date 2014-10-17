@@ -1,8 +1,8 @@
-.plugin-reverse div {
+.plugin-rot13 div {
   background: #ddd;
 }
 
-.plugin-reverse .field {
+.plugin-rot13 .field2 {
   font-size: 150%;
   font-family: sans-serif;
 }

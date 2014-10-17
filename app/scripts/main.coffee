@@ -3,14 +3,22 @@ require.config
     'underscore': '/bower_components/underscore/underscore-min'
 
 require ["underscore"], (_) ->
-  # UGH I CANNOT BELIEVE ES6 DOESN'T SUPPLY THIS JEEEEZE
-  Promise.when = (promises...) ->
-    if promises.length == 0
-      return Promise.resolve []
-    promises[0].then (result) ->
-      Promise.when.apply(this, promises.slice(1)).then (results) ->
-        results.unshift(result)
-        results
+  input = document.getElementById("text")
+  item =
+    listeners: []
+    listen: (f) -> @listeners.push (event) ->
+      f(input.value)
+  input.addEventListener "input", (event) ->
+    item.listeners.map (listener) -> listener(event)
+
+  registry =
+    callbacks: {}
+    setTarget: (name, elem) ->
+      @callbacks[name] = elem
+    register: (name, f) ->
+      f.call(@callbacks[name], item)
+
+  window.register = registry.register.bind(registry)
 
   window.get = get = (url, options) -> new Promise (resolve, reject) ->
     options = options || {}
@@ -25,22 +33,25 @@ require ["underscore"], (_) ->
         reject(r.response)
     r.send()
 
-  input = document.getElementById("text")
-  item =
-    listen: (f) -> input.addEventListener "input", (event) ->
-      f(input.value)
-
-  plugins = ["reverse"]
+  plugins = ["rot13", "reverse"]
   embed_location = document.getElementById("plugins")
 
   _.map plugins, (plugin) ->
     console.log plugin
     base = "/plugins/" + plugin + "/"
-    doc = get(base + plugin + ".html", { responseType: "document"})
-    css = get(base + plugin + ".css")
-    script = get(base + plugin + ".js")
+    css = base + plugin + ".css"
+    script = base + plugin + ".js"
     div = document.createElement("div")
-    Promise.when(doc, css, script).then ([doc, css, script]) ->
+    div.setAttribute('class', 'plugin-' + plugin)
+    get(base + plugin + ".html", { responseType: "document"}).then (doc) ->
       _.map doc.body.childNodes, (node) ->
-        div.appendChild(node)
+        div.appendChild(node) if node
       embed_location.appendChild(div)
+      script_elem = document.createElement("script")
+      script_elem.setAttribute("src", script)
+      document.head.appendChild(script_elem)
+      css_elem = document.createElement("link")
+      css_elem.setAttribute("href", css)
+      css_elem.setAttribute("rel", "stylesheet")
+      document.head.appendChild(css_elem)
+      registry.setTarget plugin, div
