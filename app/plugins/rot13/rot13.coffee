@@ -1,5 +1,5 @@
 window.register "rot13", (target) ->
-  field = this.querySelector("div.field2")
+  field = this.querySelector("div.field")
   target.listen (value) ->
     return if value == undefined
     field.textContent = value.replace /[a-zA-Z]/g, (c) ->
